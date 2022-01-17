@@ -1,12 +1,5 @@
 import { BaseComponent } from "../../baseComponent.js";
 
-const youtube_parser = (url: string): string | boolean | undefined => {
-  const regExp =
-    /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-  const match = url.match(regExp);
-  return match && match[7]?.length == 11 ? match[7] : false;
-};
-
 export class VideoCompoenent extends BaseComponent<HTMLElement> {
   constructor(title: string, url: string) {
     super(
@@ -24,13 +17,24 @@ export class VideoCompoenent extends BaseComponent<HTMLElement> {
       ".video__iframe"
     )! as HTMLIFrameElement;
 
-    const videoId = youtube_parser(url);
-    iframe.src = `https://www.youtube.com/embed/${videoId}`;
+    const videoId = this.convertToEmbeddedURL(url);
+    if (videoId) {
+      iframe.src = `https://www.youtube.com/embed/${videoId}`;
+    } else {
+      alert("올바르지 않은 url입니다.");
+    }
 
     const titleElement = this.element.querySelector(
       ".video__title"
     )! as HTMLHeadingElement;
     titleElement.textContent = title;
+  }
+
+  private convertToEmbeddedURL(url: string): string | boolean {
+    const regExp =
+      /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    const match = url.match(regExp);
+    return match && match[7]?.length == 11 ? match[7] : false;
   }
 }
 
