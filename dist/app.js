@@ -8,13 +8,13 @@ class App {
         this.page = new PageComponent();
         this.page.attatchTo(appRoot);
         const images = new ImageComponent("image title", "https://picsum.photos/600/300");
-        images.attatchTo(appRoot, "beforeend");
+        this.page.addChild(images);
         const video = new VideoCompoenent("Video Title", "https://www.youtube.com/watch?v=aDS2U713XYw");
-        video.attatchTo(appRoot, "beforeend");
+        this.page.addChild(video);
         const note = new NoteComponent("Note Title!!", "Lorem ipsum dolor sit amet.");
-        note.attatchTo(appRoot, "beforeend");
+        this.page.addChild(note);
         const todo = new TodoComponent("Todo!!!");
-        todo.attatchTo(appRoot, "beforeend");
+        this.page.addChild(todo);
     }
 }
 new App(document.querySelector(".document"));
