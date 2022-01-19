@@ -7,7 +7,8 @@ import {
 } from "./components/page/page.js";
 import { NoteComponent } from "./components/page/item/note.js";
 import { TodoComponent } from "./components/page/item/todo.js";
-import { Component } from "./components/baseComponent.js";
+import { Component } from "./components/component.js";
+import { InputDialog } from "./components/dialog/dialog.js";
 
 class App {
   private readonly page: Component & Composible;
@@ -36,6 +37,23 @@ class App {
 
     const todo = new TodoComponent("Todo!!!");
     this.page.addChild(todo);
+
+    const imageBtn = document.querySelector("#new-image")! as HTMLButtonElement;
+    imageBtn.onclick = () => {
+      imageBtn.addEventListener("click", () => {
+        const dialog = new InputDialog();
+
+        dialog.setOnCloseListener(() => {
+          dialog.removeFrom(document.body);
+        });
+
+        dialog.setOnSubmitListener(() => {
+          dialog.removeFrom(document.body);
+        });
+
+        dialog.attatchTo(document.body);
+      });
+    };
   }
 }
 
