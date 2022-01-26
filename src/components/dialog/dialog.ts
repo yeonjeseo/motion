@@ -8,6 +8,16 @@ type OnSubmitListener = () => void;
   타입에 따라 다양한 컨텐츠를 추가할 수 있음.
   Composible 인터페이스 구현
 */
+export interface MediaData {
+  readonly title: string;
+  readonly url: string;
+}
+
+export interface TextData {
+  readonly title: string;
+  readonly body: string;
+}
+
 export class InputDialog
   extends BaseComponent<HTMLElement>
   implements Composible
